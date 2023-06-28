@@ -27,8 +27,7 @@ const getUserById = async(req, res) => {
 }
 
 const createUser = async(req, res) => {
-    const {nama, noTelp, email, password, confPassword} = req.body;
-    if(password !== confPassword) return res.status(400).json({msg: "Password dan Confirm Password Tidak Cocok"})
+    const {nama, noTelp, email, password} = req.body;
     const hashPassword = await argon2.hash(password);
     try {
         await User.create({

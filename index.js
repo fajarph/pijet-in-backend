@@ -9,7 +9,9 @@ const PORT = 5000
 dotenv.config()
 
 const userRoutes = require("./routes/user.js")
-const dataDummy = require("./routes/dataDummy.js")
+// const dataDummy = require("./routes/dataDummy.js")
+const authRoutes = require("./routes/auth.js")
+const orderRoutes = require("./routes/order.js")
 
 const sessionStore = SequelizeStore(session.Store)
 
@@ -27,16 +29,15 @@ app.use(session({
     }
 }))
 
-app.use(cors({
-    credentials: true,
-    origin: 'http://localhost:3000'
-}))
+app.use(cors())
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.use(userRoutes)
-app.use(dataDummy)
+// app.use(dataDummy)
+app.use(authRoutes)
+app.use(orderRoutes)
 
 store.sync()
 

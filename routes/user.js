@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 })
 router.get('/users', controllers.getUsers)
 router.get('/users/:id', controllers.getUserById)
-router.post('/users', controllers.createUser)
+router.post('/create', controllers.createUser)
 router.patch('/users/:id', controllers.updateUser)
 
 module.exports = router

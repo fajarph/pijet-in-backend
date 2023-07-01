@@ -2,10 +2,10 @@ const express = require("express")
 const cors = require('cors')
 const session = require('express-session')
 const SequelizeStore = require('connect-session-sequelize')
-const dotenv = require('dotenv')
-const db = require("./config/database.js")
-const app = express()
+const db = require("./models").sequelize
 const PORT = 5000
+const app = express()
+const dotenv = require("dotenv")
 dotenv.config()
 
 const userRoutes = require("./routes/user.js")

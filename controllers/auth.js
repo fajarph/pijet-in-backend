@@ -13,7 +13,8 @@ const Login = async (req, res) => {
     req.session.userId = user.uuid
     const uuid = user.uuid
     const email = user.email
-    res.status(200).json({uuid, email})
+    const nama = user.nama
+    res.status(200).json({uuid, email, nama})
 }
 
 const Me = async(req, res) => {

@@ -18,15 +18,35 @@ const store = new sessionStore({
     db: db 
 })
 
-app.use(session({
+const isProduction = process.env.NODE_ENV === 'production'
+
+;(async()=>{
+    await db.sync()
+})()
+
+let sessionConfig = {
     secret: process.env.SESS_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: store,
-    cookie: {
-        secure: 'auto'
+    store: store
+}
+
+if (isProduction) {
+    sessionConfig = {
+        secret: process.env.SESS_SECRET,
+        store: store,
+        cookie: {
+            secure: true,
+            maxAge: 1000 * 60 * 60 * 48,
+            httpOnly: true,
+            sameSite: 'none'
+        },
+        resave: false, // we support the touch method so per the express-session docs this should be set to false
+        proxy: true // if you do SSL outside of node.
     }
-}))
+}
+
+app.use(session(sessionConfig))
+
+store.sync()
 
 app.use(cors())
 

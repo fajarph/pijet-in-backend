@@ -16,6 +16,20 @@ const Login = async (req, res) => {
     res.status(200).json({uuid, email})
 }
 
+const Me = async(req, res) => {
+    if(!req.session.userId){
+        return res.status(401).json({msg: "Mohon Login ke Akun Anda"})
+    }
+    const user = await User.findOne({
+        attributes:["id", "uuid","nama", "email"],
+        where: {
+            uuid: req.session.userId
+        }
+    });
+    if(!user) return res.status(404).json({msg: "User Tidak Ditemukan"})
+    res.status(200).json(user)
+}
+
 const LogOut = (req, res) => {
     req.session.destroy((err) => {
         if(err) return res.status(400).json({msg: "Tidak Dapat Logout"})
@@ -25,5 +39,6 @@ const LogOut = (req, res) => {
 
 module.exports = {
     Login,
+    Me,
     LogOut
 }

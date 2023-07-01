@@ -5,7 +5,7 @@ const SequelizeStore = require('connect-session-sequelize')
 const db = require("./models").sequelize
 const PORT = 5000
 const app = express()
-const dotenv = require("dotenv")
+const dotenv = require('dotenv')
 dotenv.config()
 
 const userRoutes = require("./routes/user.js")

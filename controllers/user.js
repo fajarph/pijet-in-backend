@@ -30,13 +30,13 @@ const createUser = async(req, res) => {
     const {nama, noTelp, email, password} = req.body;
     const hashPassword = await argon2.hash(password);
     try {
-        await User.create({
-            nama: nama,
-            noTelp: noTelp,
-            email: email,
-            password: hashPassword,
-        })
-        res.status(201).json({msg: "Register Berhasil"})
+        // await User.create({
+        //     nama: nama,
+        //     noTelp: noTelp,
+        //     email: email,
+        //     password: hashPassword,
+        // })
+        res.status(201).json({msg: `${nama}, ${noTelp}, ${email}, ${password}`})
     } catch (error) {
         res.status(400).json({msg: error.message})
     }

@@ -9,7 +9,6 @@ const PORT = 5000
 dotenv.config()
 
 const userRoutes = require("./routes/user.js")
-// const dataDummy = require("./routes/dataDummy.js")
 const authRoutes = require("./routes/auth.js")
 const orderRoutes = require("./routes/order.js")
 
@@ -35,7 +34,6 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.use(userRoutes)
-// app.use(dataDummy)
 app.use(authRoutes)
 app.use(orderRoutes)
 

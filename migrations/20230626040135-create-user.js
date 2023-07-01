@@ -36,19 +36,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      noTelp: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      tglLahir: {
-        type: Sequelize.STRING
-      },
-      tempatLahir: {
-        type: Sequelize.STRING
-      },
-      imageUrl: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

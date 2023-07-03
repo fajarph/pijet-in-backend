@@ -54,15 +54,11 @@ const updateUser = async(req, res) => {
         const nik = req.body.nik
         const tglLahir = req.body.tglLahir
         const tempatLahir = req.body.tempatLahir
-        const email = req.body.email
-        const password = req.body.password
         await User.update({
             nama: nama,
             nik: nik,
             tglLahir: tglLahir,
-            tempatLahir: tempatLahir,
-            email: email,
-            password: password
+            tempatLahir: tempatLahir
         },{
             where: {
                 uuid: req.params.id

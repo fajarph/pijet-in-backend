@@ -1,10 +1,16 @@
-const { User } = require("../models")
+const { User, Order } = require("../models")
 const argon2 = require('argon2')
 
 const getUsers = async(req, res) => {
     try {
         const response = await User.findAll({
-            attributes: ["uuid", "nama", "email","status", "nik", "noTelp", "tglLahir", "tempatLahir", "imageUrl"]
+            attributes: ["uuid", "nama", "email","status", "nik", "noTelp", "tglLahir", "tempatLahir", "imageUrl"],
+            include: [
+                {
+                    model: Order,
+                    attributes: ["id", "nama", "gender", "durasiLayanan", "layananTambahan"]
+                }
+            ],
         });
         res.status(200).json(response)
     } catch (error) {

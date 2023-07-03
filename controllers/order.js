@@ -17,6 +17,26 @@ const getOrders = async(req, res) => {
     }
 }
 
+const getOrderById = async(req, res) => {
+    try {
+        const response = await Order.findOne({
+            attributes:["nama", "gender", "durasiLayanan", "layananTambahan", "UserId"],
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'nama']
+                }
+            ],
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json(response)
+    } catch (error) {
+        res.status(500).json({msg: error.message})
+    }
+}
+
 const createOrder = async(req, res) => {
     const {nama, gender, durasiLayanan, layananTambahan} = req.body;
     try {
@@ -35,5 +55,7 @@ const createOrder = async(req, res) => {
 
 module.exports = {
     getOrders,
+    getOrderById,
     createOrder
+    
 }

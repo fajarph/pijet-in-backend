@@ -1,9 +1,15 @@
-const { Order } = require("../models")
+const { Order, User } = require("../models")
 
 const getOrders = async(req, res) => {
     try {
         const response = await Order.findAll({
-            attributes: ["nama", "gender", "durasiLayanan","layananTambahan"]
+            attributes: ["nama", "gender", "durasiLayanan", "layananTambahan", "UserId"],
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'nama']
+                }
+            ]
         });
         res.status(200).json(response)
     } catch (error) {

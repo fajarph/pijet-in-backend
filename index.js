@@ -57,8 +57,6 @@ app.use(userRoutes)
 app.use(authRoutes)
 app.use(orderRoutes)
 
-store.sync()
-
 app.listen(PORT, () => {
     console.log(`Server Menyala di PORT ` +PORT);
 })

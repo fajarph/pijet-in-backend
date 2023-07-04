@@ -60,11 +60,13 @@ const updateUser = async(req, res) => {
         const nik = req.body.nik
         const tglLahir = req.body.tglLahir
         const tempatLahir = req.body.tempatLahir
+        const imageUrl = req.body.imageUrl
         await User.update({
             nama: nama,
             nik: nik,
             tglLahir: tglLahir,
-            tempatLahir: tempatLahir
+            tempatLahir: tempatLahir,
+            imageUrl: imageUrl
         },{
             where: {
                 uuid: req.params.id

@@ -33,7 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     noTelp: DataTypes.STRING,
     tglLahir: DataTypes.STRING,
     tempatLahir: DataTypes.STRING,
-    imageUrl: DataTypes.STRING
+    imageUrl: {
+      type: DataTypes.STRING,
+      defaultValue: "https://wallpapers.com/images/hd/b-w-power-from-chainsaw-man-pmy1zttfrb7sauer.jpg"
+    }
   }, {
     sequelize,
     modelName: 'User',

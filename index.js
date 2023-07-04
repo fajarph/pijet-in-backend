@@ -1,8 +1,8 @@
 const express = require("express")
 const cors = require('cors')
 const session = require('express-session')
-const SequelizeStore = require('connect-session-sequelize')
-const db = require("./models").sequelize
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
+const { sequelize } = require("./models")
 const PORT = 5000
 const app = express()
 const dotenv = require('dotenv')
@@ -12,41 +12,31 @@ const userRoutes = require("./routes/user.js")
 const authRoutes = require("./routes/auth.js")
 const orderRoutes = require("./routes/order.js")
 
-const sessionStore = SequelizeStore(session.Store)
-
-const store = new sessionStore({
-    db: db 
-})
-
 const isProduction = process.env.NODE_ENV === 'production'
 
 ;(async()=>{
-    await db.sync()
+    await sequelize.sync()
 })()
 
-let sessionConfig = {
+const sessionConfig = {
     secret: process.env.SESS_SECRET,
-    store: store
-}
-
-if (isProduction) {
-    sessionConfig = {
-        secret: process.env.SESS_SECRET,
-        store: store,
-        cookie: {
-            secure: true,
-            maxAge: 1000 * 60 * 60 * 48,
-            httpOnly: true,
-            sameSite: 'none'
-        },
-        resave: false, // we support the touch method so per the express-session docs this should be set to false
-        proxy: true // if you do SSL outside of node.
-    }
-}
+    store: new SequelizeStore({
+      db: sequelize,
+      checkExpirationInterval: 15 * 60 * 1000, // Check every 15 minutes
+      expiration: 24 * 60 * 60 * 1000, // Expire after 24 hours
+    }),
+    cookie: {
+      secure: isProduction,
+      httpOnly: true,
+      sameSite: isProduction ? 'none' : undefined,
+    },
+    resave: false,
+    proxy: isProduction,
+  }
 
 app.use(session(sessionConfig))
 
-store.sync()
+sequelize.sync()
 
 app.use(cors())
 

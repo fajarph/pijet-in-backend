@@ -8,11 +8,6 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: 'postgres',
-    define: {
-      // Menambahkan opsi untuk mempertahankan relasi antar tabel
-      freezeTableName: true,
-      timestamps: true
-    }
   },
   production: {
     username: process.env.DB_USER,
@@ -22,11 +17,6 @@ module.exports = {
     dialect: 'postgres',
     dialectOptions: {
         ssl: true
-    },
-    define: {
-      // Menambahkan opsi untuk mempertahankan relasi antar tabel
-      freezeTableName: true,
-      timestamps: true
     }
   }
 };

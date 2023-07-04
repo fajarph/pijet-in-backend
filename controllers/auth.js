@@ -14,7 +14,8 @@ const Login = async (req, res) => {
     const uuid = user.uuid
     const email = user.email
     const nama = user.nama
-    res.status(200).json({uuid, email, nama})
+    const imageUrl = user.imageUrl
+    res.status(200).json({uuid, email, nama, imageUrl})
 }
 
 const Me = async(req, res) => {
